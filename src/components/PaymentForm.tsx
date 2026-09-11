@@ -24,8 +24,9 @@ export default function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
     setError(null);
 
     try {
-      // 1. Create Payment Intent on the server
-      const response = await fetch('/api/create-payment-intent', {
+      // 1. Create Payment Intent on the server (using configured API base URL if hosted externally)
+      const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+      const response = await fetch(`${apiBaseUrl}/api/create-payment-intent`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +35,7 @@ export default function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to initialize payment');
+        throw new Error('Payment server endpoint unavailable. On static GitHub Pages, you can use Demo Booking below or configure VITE_API_BASE_URL.');
       }
 
       const { clientSecret } = await response.json();
@@ -128,6 +129,21 @@ export default function PaymentForm({ amount, onSuccess }: PaymentFormProps) {
       >
         {processing ? <CircularProgress size={24} color="inherit" /> : `Pay $${amount}`}
       </Button>
+
+      <Box sx={{ mt: 2, textAlign: 'center' }}>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+          Previewing or testing on GitHub Pages without a backend?
+        </Typography>
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="small"
+          onClick={onSuccess}
+          sx={{ textTransform: 'none', fontSize: '0.8rem' }}
+        >
+          Confirm Demo Booking (Test Mode)
+        </Button>
+      </Box>
     </Box>
   );
 }

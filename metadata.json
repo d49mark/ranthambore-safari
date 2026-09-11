@@ -1,5 +1,6 @@
 {
   "name": "Ranthambore Boat Safari",
   "description": "Official online booking for Ranthambore National Park boat safaris. Experience the wild from the water.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

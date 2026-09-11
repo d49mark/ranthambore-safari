@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ranthambore Boat Safari</title>
+    <script>
+      // Redirect 404s back to single-page application hash route
+      var path = window.location.pathname;
+      var repo = path.split('/')[1] || '';
+      // If deployed in a subfolder like /repo-name/
+      if (repo && window.location.hostname.endsWith('github.io')) {
+        window.location.replace('/' + repo + '/#' + window.location.pathname.replace('/' + repo, ''));
+      } else {
+        window.location.replace('/#' + window.location.pathname);
+      }
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Ranthambore Boat Safari...</p>
+  </body>
+</html>
